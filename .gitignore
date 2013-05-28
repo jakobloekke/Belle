@@ -125,3 +125,4 @@ Umbraco.Belle/bin/*
 packages/*
 Umbraco.Belle/App_Data/TEMP/*
 Umbraco.Belle/Umbraco.Belle.csproj.user
+.idea
