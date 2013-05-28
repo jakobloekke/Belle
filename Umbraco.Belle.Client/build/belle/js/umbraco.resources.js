@@ -13,7 +13,6 @@ angular.module('umbraco.resources.content', [])
     var factory = {
         _cachedItems: contentArray,
         getContent: function (id) {
-            
 
             if (contentArray[id] !== undefined){
                 return contentArray[id];
@@ -52,8 +51,7 @@ angular.module('umbraco.resources.content', [])
                     alias: "tab02",
                     properties: [
                         { alias: "sampleProperty", label: "Sample 1", view: "umbraco.sample", value: "Hello World" },
-                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } },
-                        { alias: "tags", label: "Tags", view: "umbraco.tags", value: ""}
+                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } }
                     ]
                 },
                 {
@@ -66,8 +64,6 @@ angular.module('umbraco.resources.content', [])
                 ]
             };
 
-            // return undefined;
-
             return content;
         },
 
@@ -79,7 +75,7 @@ angular.module('umbraco.resources.content', [])
 
             var c = this.getContent(parentId);
             c.name = "empty name";
-            
+
             $.each(c.tabs, function(index, tab){
                 $.each(tab.properties,function(index, property){
                     property.value = "";
@@ -97,17 +93,17 @@ angular.module('umbraco.resources.content', [])
                     offset: 0,
                     filter: ''
                 };
-            }  
+            }
 
-            var collection = {take: 10, total: 68, pages: 7, currentPage: options.offset, filter: options.filter};    
+            var collection = {take: 10, total: 68, pages: 7, currentPage: options.offset, filter: options.filter};
             collection.total = 56 - (options.filter.length);
             collection.pages = Math.round(collection.total / collection.take);
             collection.resultSet = [];
-            
+
             if(collection.total < options.take){
                 collection.take = collection.total;
             }else{
-                collection.take = options.take;    
+                collection.take = options.take;
             }
 
 
@@ -115,8 +111,8 @@ angular.module('umbraco.resources.content', [])
             for (var i = 0; i < collection.take; i++) {
                 _id = (parentId + i) * options.offset;
                 var cnt = this.getContent(_id);
-                
-                //here we fake filtering    
+
+                //here we fake filtering
                 if(options.filter !== ''){
                     cnt.name = options.filter + cnt.name;
                 }
@@ -141,6 +137,7 @@ angular.module('umbraco.resources.content', [])
 
     return factory;
 });
+
 angular.module('umbraco.resources.contentType', [])
 .factory('contentTypeFactory', function () {
     return {
@@ -182,45 +179,6 @@ angular.module('umbraco.resources.contentType', [])
 
       };
 });
-angular.module('umbraco.resources.localization', [])
-.factory('localizationFactory', function () {
-  var localizationArray = [];
-  var labels = {};
-
-  var factory = {
-    _cachedItems: localizationArray,
-    getLabels: function (language) {
-      /* 
-        Fetch from JSON object according to users language settings
-        $http.get('model.:language.json') ish solution
-       */
-      labels = {
-        language: 'en-UK',
-        app: {
-          search: {
-            typeToSearch: "Type to search",
-            searchResult: "Search result"
-          },
-          help: "Help" 
-        },
-        content: {
-          modelName: "Content",
-          contextMenu: {
-            createPageLabel: "Create a page under %name"
-          }
-        }
-      };
-
-
-
-      return labels;
-    },
-    getLanguage: function() {
-      return labels.language;
-    }
-  };
-  return factory;
-}); 
 angular.module('umbraco.resources.macro', [])
 .factory('macroFactory', function () {
     
@@ -278,21 +236,6 @@ angular.module('umbraco.resources.media', [])
           ];
       }
   };
-});
-angular.module('umbraco.resources.tags', [])
-.factory('tagsFactory', function () {
-	return {
-
-		getTags: function (group) {
-			var g = [
-				{"id":1, "label":"Jordbærkage"},
-				{"id":2, "label":"Banankage"},
-				{"id":3, "label":"Kiwikage"},
-				{"id":4, "label":"Rabarbertærte"}
-			];
-			return g;
-		}
-	};
 });
 angular.module('umbraco.resources.template', [])
 .factory('templateFactory', function () {
